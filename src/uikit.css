@@ -2913,6 +2913,7 @@ select.uk-form-width-xsmall {
   position: relative;
   box-sizing: border-box;
   transition: box-shadow 0.1s ease-in-out;
+  border-radius: 1.5rem;
 }
 /* Sections
  ========================================================================== */
@@ -3602,6 +3603,8 @@ select.uk-form-width-xsmall {
   max-width: 100%;
   /* 4 */
   margin: 0;
+
+  
 }
 /* Input
  ========================================================================== */
@@ -3649,6 +3652,8 @@ select.uk-form-width-xsmall {
   /* 9 */
   border: none;
   color: #666;
+
+  border-radius: 1.5rem;
 }
 .uk-search-input:focus {
   outline: none;
