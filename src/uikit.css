@@ -1339,7 +1339,7 @@ button.uk-icon:not(:disabled) {
   /* 2 */
   margin: 0;
   /* 3 */
-  border-radius: 0;
+  border-radius: 1.5rem;
   /* 4 */
   font: inherit;
 }
@@ -3427,7 +3427,9 @@ select.uk-form-width-xsmall {
    Component: Overlay
  ========================================================================== */
 .uk-overlay {
-  padding: 30px 30px;
+  padding: 5px 20px;
+  border-bottom-left-radius: 1.5rem;
+  border-bottom-right-radius: 1.5rem;
 }
 /*
  * Remove margin from the last-child

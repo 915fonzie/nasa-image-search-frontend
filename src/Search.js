@@ -1,14 +1,46 @@
 import React from 'react'   
+import ImageCardList from './ImageCardList'
 
 export default class Search extends React.Component {
 
+  constructor() {
+    super()
+    this.state = {
+      images: [],
+      image: []
+    }
+  }
 
+  handleSearch = (e) => {
+    e.preventDefault()
+    console.log(e.target[1].value)
+    fetch(`https://nasa-file-search-backend.herokuapp.com/search?query=${e.target[1].value}&page=1&perPage=15`)
+      .then(resp => resp.json())
+      .then(json => {
+        this.setState({
+          images: json.file
+        });
+      });
+  }
+
+
+  fetchImageData = async (id) => {
+    await fetch(`https://nasa-file-search-backend.herokuapp.com/search/${id}`)
+      .then(resp => resp.json())
+      .then(json => {
+        this.setState({
+          image: json.file
+        });
+      });
+    return this.state.image
+  }
     render() {
         return (
           <div className="uk-container uk-margin">
             <div className="uk-container uk-flex uk-flex-between uk-margin">
               <div className="uk-inline uk-margin">
-                <form className="uk-form-width-medium uk-search uk-search-default">
+                <form className="uk-form-width-medium uk-search uk-search-default" onSubmit={this.handleSearch}>
+                  <button className="uk-search-icon-flip" data-uk-search-icon></button>
                   <input
                     className="uk-search-input"
                     type="search"
@@ -18,27 +50,33 @@ export default class Search extends React.Component {
               </div>
 
               <div className="uk-inline">
-                <button className="uk-button uk-button-default" type="button">
+                <button
+                  className="uk-button uk-button-default"
+                  type="button"
+                  data-uk-toggle="target: #offcanvas-push"
+                >
                   Filter
                 </button>
-                <div data-uk-dropdown="mode: click; pos: bottom-right">
-                  This is a duck
+                <div
+                  id="offcanvas-push"
+                  data-uk-offcanvas="mode: push; overlay: true; flip: true"
+                >
+                  <div className="uk-offcanvas-bar">
+                    <button
+                      className="uk-offcanvas-close"
+                      type="button"
+                      data-uk-close
+                    ></button>
+                    <h1>This will be the options</h1>
+                  </div>
                 </div>
               </div>
             </div>
-
-            <div className="uk-child-width-1-3@s uk-child-width-1-4@m uk-child-width-1-5@l uk-flex-center uk-grid-small" data-uk-grid="masonry: true">
-              <div>
-                <img
-                  className="uk-card uk-card-default uk-flex uk-flex-center uk-flex-middle"
-                  src="https://images-assets.nasa.gov/image/GSFC_20171208_Archive_e002130/GSFC_20171208_Archive_e002130~thumb.jpg"
-                  alt="this is earth"
-                  height="200"
-                  data-uk-img
-                >
-                </img>
-              </div>
-            </div>
+            <ImageCardList
+              images={this.state.images}
+              fetchImageData={this.fetchImageData}
+              imageData={this.state.image}
+            />
           </div>
         );
     }
