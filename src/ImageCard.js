@@ -1,6 +1,5 @@
 import React from 'react'
 import { motion } from 'framer-motion'
-import ImageModal from './ImageModal'
 
 const ImageCard = (props) => {
     const imageThumb = () => {
@@ -11,8 +10,6 @@ const ImageCard = (props) => {
 
         return thumbUrl
     }
-
-
     const imageInfo = async () => {
         await props.fetchImageData(props.image.id)
     }
@@ -28,7 +25,6 @@ const ImageCard = (props) => {
                     data-uk-toggle="target: #modal-center"
                 data-uk-img>
                 </img>
-                <ImageModal imageData={props.imageData} imagePhoto={imageThumb()}/>
             <div className="uk-overlay uk-overlay-primary uk-dark uk-position-bottom">
                 <p>{props.image.title}</p>
             </div>

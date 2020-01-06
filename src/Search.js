@@ -1,5 +1,6 @@
 import React from 'react'   
 import ImageCardList from './ImageCardList'
+import ImageModal from './ImageModal'
 
 export default class Search extends React.Component {
 
@@ -11,10 +12,18 @@ export default class Search extends React.Component {
     }
   }
 
+  imageThumb = () => {
+    let thumbUrl = "https://i.imgur.com/1sYu3VL.png"
+    if (this.state.image.thumb_url) {
+        thumbUrl = this.state.image.thumb_url
+    }
+      return thumbUrl
+  }
+
   handleSearch = (e) => {
     e.preventDefault()
     console.log(e.target[1].value)
-    fetch(`https://nasa-file-search-backend.herokuapp.com/search?query=${e.target[1].value}&page=1&perPage=15`)
+    fetch(`https://nasa-file-search-backend.herokuapp.com/search?query=${e.target[1].value}&page=1&perPage=100`)
       .then(resp => resp.json())
       .then(json => {
         this.setState({
@@ -34,13 +43,20 @@ export default class Search extends React.Component {
       });
     return this.state.image
   }
+
     render() {
         return (
           <div className="uk-container uk-margin">
             <div className="uk-container uk-flex uk-flex-between uk-margin">
               <div className="uk-inline uk-margin">
-                <form className="uk-form-width-medium uk-search uk-search-default" onSubmit={this.handleSearch}>
-                  <button className="uk-search-icon-flip" data-uk-search-icon></button>
+                <form
+                  className="uk-form-width-medium uk-search uk-search-default"
+                  onSubmit={this.handleSearch}
+                >
+                  <button
+                    className="uk-search-icon-flip"
+                    data-uk-search-icon
+                  ></button>
                   <input
                     className="uk-search-input"
                     type="search"
@@ -77,6 +93,7 @@ export default class Search extends React.Component {
               fetchImageData={this.fetchImageData}
               imageData={this.state.image}
             />
+            <ImageModal imageData={this.state.image} imagePhoto={this.imageThumb()} />
           </div>
         );
     }

@@ -4,6 +4,7 @@ import ImageCard from './ImageCard'
 const ImageCardList = (props) => {
     const looper = () => {
         const images = props.images
+        console.log("list created")
         return images.map((image) => <ImageCard key={image.id} image={image} fetchImageData={props.fetchImageData} imageData={props.imageData}/>);
     }
 

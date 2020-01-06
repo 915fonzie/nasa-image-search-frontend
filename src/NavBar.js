@@ -8,8 +8,16 @@ const NavBar = (props) => {
     //     return props.location.pathname === route ? "uk-active" : "uk-parent";
     // };
 
+    const changeStatusOfLogin = () => {
+        if (props.isLoggedIn) {
+            return <Link to='/logout'>Log Out</Link>
+        }
+        localStorage.removeItem("userId")
+        return <Link to="/sign-up">Sign Up</Link>
+    }
+
     return (
-        <nav className="uk-navbar-container uk-navbar">
+        <nav className="uk-navbar-container uk-navbar" data-uk-sticky>
             <div className="uk-navbar-left">
                 <ul className="uk-navbar-nav">
                     <li className="uk-parent">
@@ -26,7 +34,7 @@ const NavBar = (props) => {
             <div className="uk-navbar-right">
                 <ul className="uk-navbar-nav">
                     <li className="uk-parent">
-                        <Link to='/sign-up'>Sign Up</Link>
+                        {changeStatusOfLogin()}
                     </li>
                 </ul>
             </div>
